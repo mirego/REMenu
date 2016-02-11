@@ -35,7 +35,7 @@
 
 @interface REMenu ()
 
-@property (strong, readwrite, nonatomic) UIView *menuView;
+@property (strong, readwrite, nonatomic) UIScrollView *menuView;
 @property (strong, readwrite, nonatomic) UIView *menuWrapperView;
 @property (strong, readwrite, nonatomic) REMenuContainerView *containerView;
 @property (strong, readwrite, nonatomic) UIButton *backgroundButton;
@@ -44,6 +44,7 @@
 @property (strong, readwrite, nonatomic) NSMutableArray *itemViews;
 @property (weak, readwrite, nonatomic) UINavigationBar *navigationBar;
 @property (strong, readwrite, nonatomic) UIToolbar *toolbar;
+@property (weak, readwrite, nonatomic) UIView *viewToShowFrom;
 
 @end
 
@@ -116,6 +117,7 @@
     
     self.isOpen = YES;
     self.isAnimating = YES;
+    self.viewToShowFrom = view;
     
     // Create views
     //
@@ -132,7 +134,7 @@
     });
     
     self.menuView = ({
-        UIView *view = [[UIView alloc] init];
+        UIScrollView *view = [[UIScrollView alloc] init];
         if (!self.liveBlur || !REUIKitIsFlatMode()) {
             view.backgroundColor = self.backgroundColor;
         }
@@ -187,7 +189,7 @@
     CGFloat navigationBarOffset = self.appearsBehindNavigationBar && self.navigationBar ? 64 : 0;
     CGFloat itemOriginY = 40.0 + navigationBarOffset;
     CGFloat separatorOriginY = 40.0 + navigationBarOffset + self.separatorOffset.height;
-
+    
     // Append new item views to REMenuView
     //
     for (REMenuItem *item in self.items) {
@@ -197,7 +199,7 @@
         if (item.height > 0) {
             itemHeight = item.height;
         }
-
+        
         if (index == self.items.count - 1)
             itemHeight += self.cornerRadius;
         
@@ -224,7 +226,7 @@
             [itemView addSubview:item.customView];
         }
         [self.menuView addSubview:itemView];
-
+        
         separatorOriginY += itemHeight + self.separatorHeight;
         itemOriginY += itemHeight;
     }
@@ -232,7 +234,11 @@
     // Set up frames
     //
     self.menuWrapperView.frame = CGRectMake(0, -self.combinedHeight - navigationBarOffset, rect.size.width, self.combinedHeight + navigationBarOffset);
-    self.menuView.frame = self.menuWrapperView.bounds;
+    
+    CGFloat height = MIN(self.viewToShowFrom.bounds.size.height - navigationBarOffset, self.combinedHeight);
+    self.menuView.frame = CGRectMake(0, 0, self.viewToShowFrom.bounds.size.width, height + navigationBarOffset);
+    self.menuView.contentSize = CGSizeMake(self.viewToShowFrom.bounds.size.width, self.combinedHeight + navigationBarOffset);
+    
     if (REUIKitIsFlatMode() && self.liveBlur) {
         self.toolbar.frame = self.menuWrapperView.bounds;
     }
@@ -264,48 +270,48 @@
                   initialSpringVelocity:4.0
                                 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                 self.backgroundView.alpha = self.backgroundAlpha;
-                 CGRect frame = self.menuView.frame;
-                 frame.origin.y = -40.0 - self.separatorHeight;
-                 self.menuWrapperView.frame = frame;
-             } completion:^(BOOL finished) {
-                 self.isAnimating = NO;
-                 if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
-                     [self.delegate didOpenMenu:self];
-                 }
-             }];
+                                 self.backgroundView.alpha = self.backgroundAlpha;
+                                 CGRect frame = self.menuView.frame;
+                                 frame.origin.y = -40.0 - self.separatorHeight;
+                                 self.menuWrapperView.frame = frame;
+                             } completion:^(BOOL finished) {
+                                 self.isAnimating = NO;
+                                 if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
+                                     [self.delegate didOpenMenu:self];
+                                 }
+                             }];
         } else {
             [UIView animateWithDuration:self.animationDuration
                                   delay:0.0
                                 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut
                              animations:^{
-                 self.backgroundView.alpha = self.backgroundAlpha;
-                 CGRect frame = self.menuView.frame;
-                 frame.origin.y = -40.0 - self.separatorHeight;
-                 self.menuWrapperView.frame = frame;
-             } completion:^(BOOL finished) {
-                 self.isAnimating = NO;
-                 if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
-                     [self.delegate didOpenMenu:self];
-                 }
-             }];
-
+                                 self.backgroundView.alpha = self.backgroundAlpha;
+                                 CGRect frame = self.menuView.frame;
+                                 frame.origin.y = -40.0 - self.separatorHeight;
+                                 self.menuWrapperView.frame = frame;
+                             } completion:^(BOOL finished) {
+                                 self.isAnimating = NO;
+                                 if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
+                                     [self.delegate didOpenMenu:self];
+                                 }
+                             }];
+            
         }
     } else {
         [UIView animateWithDuration:self.animationDuration
                               delay:0.0
                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-            self.backgroundView.alpha = self.backgroundAlpha;
-            CGRect frame = self.menuView.frame;
-            frame.origin.y = -40.0 - self.separatorHeight;
-            self.menuWrapperView.frame = frame;
-        } completion:^(BOOL finished) {
-            self.isAnimating = NO;
-            if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
-                [self.delegate didOpenMenu:self];
-            }
-        }];
+                             self.backgroundView.alpha = self.backgroundAlpha;
+                             CGRect frame = self.menuView.frame;
+                             frame.origin.y = -40.0 - self.separatorHeight;
+                             self.menuWrapperView.frame = frame;
+                         } completion:^(BOOL finished) {
+                             self.isAnimating = NO;
+                             if ([self.delegate respondsToSelector:@selector(didOpenMenu:)]) {
+                                 [self.delegate didOpenMenu:self];
+                             }
+                         }];
     }
 }
 
@@ -342,31 +348,31 @@
                               delay:0.0
                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut
                          animations:^ {
-            CGRect frame = self.menuView.frame;
-            frame.origin.y = - self.combinedHeight - navigationBarOffset;
-            self.menuWrapperView.frame = frame;
-            self.backgroundView.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.isOpen = NO;
-            self.isAnimating = NO;
-            
-            [self.menuView removeFromSuperview];
-            [self.menuWrapperView removeFromSuperview];
-            [self.backgroundButton removeFromSuperview];
-            [self.backgroundView removeFromSuperview];
-            [self.containerView removeFromSuperview];
-            
-            if (completion) {
-                completion();
-            }
-            
-            if (self.closeCompletionHandler) {
-                self.closeCompletionHandler();
-            }
-            if ([self.delegate respondsToSelector:@selector(didCloseMenu:)]) {
-                [self.delegate didCloseMenu:self];
-            }
-        }];
+                             CGRect frame = self.menuView.frame;
+                             frame.origin.y = - self.combinedHeight - navigationBarOffset;
+                             self.menuWrapperView.frame = frame;
+                             self.backgroundView.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             self.isOpen = NO;
+                             self.isAnimating = NO;
+                             
+                             [self.menuView removeFromSuperview];
+                             [self.menuWrapperView removeFromSuperview];
+                             [self.backgroundButton removeFromSuperview];
+                             [self.backgroundView removeFromSuperview];
+                             [self.containerView removeFromSuperview];
+                             
+                             if (completion) {
+                                 completion();
+                             }
+                             
+                             if (self.closeCompletionHandler) {
+                                 self.closeCompletionHandler();
+                             }
+                             if ([self.delegate respondsToSelector:@selector(didCloseMenu:)]) {
+                                 [self.delegate didCloseMenu:self];
+                             }
+                         }];
         
     };
     
@@ -402,7 +408,7 @@
 
 - (CGFloat)totalItemsHeight {
     CGFloat itemsHeight = 0;
-
+    
     for (REMenuItem *item in self.items) {
         if (item.height > 0) {
             itemsHeight += item.height;
@@ -410,7 +416,7 @@
             itemsHeight += self.itemHeight;
         }
     }
-
+    
     return itemsHeight;
 }
 
