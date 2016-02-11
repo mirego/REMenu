@@ -74,6 +74,65 @@
                                                              [weakSelf setViewControllers:@[controller] animated:NO];
                                                          }];
     
+    REMenuItem *profileItem2 = [[REMenuItem alloc] initWithTitle:@"Profile 2"
+                                                          image:[UIImage imageNamed:@"Icon_Profile"]
+                                               highlightedImage:nil
+                                                         action:^(REMenuItem *item) {
+                                                             NSLog(@"Item: %@", item);
+                                                             ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                             [weakSelf setViewControllers:@[controller] animated:NO];
+                                                         }];
+    
+    REMenuItem *profileItem3 = [[REMenuItem alloc] initWithTitle:@"Profile 3"
+                                                          image:[UIImage imageNamed:@"Icon_Profile"]
+                                               highlightedImage:nil
+                                                         action:^(REMenuItem *item) {
+                                                             NSLog(@"Item: %@", item);
+                                                             ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                             [weakSelf setViewControllers:@[controller] animated:NO];
+                                                         }];
+    
+    REMenuItem *profileItem4 = [[REMenuItem alloc] initWithTitle:@"Profile 4"
+                                                          image:[UIImage imageNamed:@"Icon_Profile"]
+                                               highlightedImage:nil
+                                                         action:^(REMenuItem *item) {
+                                                             NSLog(@"Item: %@", item);
+                                                             ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                             [weakSelf setViewControllers:@[controller] animated:NO];
+                                                         }];
+    REMenuItem *profileItem5 = [[REMenuItem alloc] initWithTitle:@"Profile 5"
+                                                           image:[UIImage imageNamed:@"Icon_Profile"]
+                                                highlightedImage:nil
+                                                          action:^(REMenuItem *item) {
+                                                              NSLog(@"Item: %@", item);
+                                                              ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                              [weakSelf setViewControllers:@[controller] animated:NO];
+                                                          }];
+    REMenuItem *profileItem6 = [[REMenuItem alloc] initWithTitle:@"Profile 6"
+                                                           image:[UIImage imageNamed:@"Icon_Profile"]
+                                                highlightedImage:nil
+                                                          action:^(REMenuItem *item) {
+                                                              NSLog(@"Item: %@", item);
+                                                              ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                              [weakSelf setViewControllers:@[controller] animated:NO];
+                                                          }];
+    REMenuItem *profileItem7 = [[REMenuItem alloc] initWithTitle:@"Profile 7"
+                                                           image:[UIImage imageNamed:@"Icon_Profile"]
+                                                highlightedImage:nil
+                                                          action:^(REMenuItem *item) {
+                                                              NSLog(@"Item: %@", item);
+                                                              ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                              [weakSelf setViewControllers:@[controller] animated:NO];
+                                                          }];
+    REMenuItem *profileItem8 = [[REMenuItem alloc] initWithTitle:@"Profile 8"
+                                                           image:[UIImage imageNamed:@"Icon_Profile"]
+                                                highlightedImage:nil
+                                                          action:^(REMenuItem *item) {
+                                                              NSLog(@"Item: %@", item);
+                                                              ProfileViewController *controller = [[ProfileViewController alloc] init];
+                                                              [weakSelf setViewControllers:@[controller] animated:NO];
+                                                          }];
+    
     // You can also assign a custom view for any particular item
     // Uncomment the code below and add `customViewItem` to `initWithItems` array, for example:
     // self.menu = [[REMenu alloc] initWithItems:@[homeItem, exploreItem, activityItem, profileItem, customViewItem]]
@@ -91,8 +150,15 @@
     exploreItem.tag = 1;
     activityItem.tag = 2;
     profileItem.tag = 3;
+    profileItem2.tag = 4;
+    profileItem3.tag = 5;
+    profileItem5.tag = 7;
+    profileItem6.tag = 8;
+    profileItem7.tag = 9;
+    profileItem8.tag = 10;
+
     
-    self.menu = [[REMenu alloc] initWithItems:@[homeItem, exploreItem, activityItem, profileItem]];
+    self.menu = [[REMenu alloc] initWithItems:@[homeItem, exploreItem, activityItem, profileItem, profileItem2, profileItem3, profileItem4, profileItem5, profileItem6, profileItem7, profileItem8]];
     
     // Background view
     //
