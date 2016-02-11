@@ -156,15 +156,11 @@
     self.titleLabel.font = self.item.font == nil ? self.menu.font : self.item.font;
     self.titleLabel.text = self.item.title;
     self.titleLabel.textColor = self.item.textColor == nil ? self.menu.textColor : self.item.textColor;
-    self.titleLabel.shadowColor = self.item.textShadowColor ? self.menu.textShadowColor : self.item.textShadowColor;
-    self.titleLabel.shadowOffset = self.item.textShadowOffset.width == 0 && self.item.textShadowOffset.height == 0 ? self.menu.textShadowOffset : self.item.textShadowOffset;
     self.titleLabel.textAlignment = (NSInteger)self.item.textAlignment == -1 ? self.menu.textAlignment : self.item.textAlignment;
     self.subtitleLabel.font = self.item.subtitleFont == nil ? self.menu.subtitleFont : self.item.subtitleFont
 ;
     self.subtitleLabel.text = self.item.subtitle;
     self.subtitleLabel.textColor = self.item.subtitleTextColor == nil ? self.menu.subtitleTextColor : self.item.subtitleTextColor;
-    self.subtitleLabel.shadowColor = self.item.subtitleTextShadowColor == nil ? self.menu.subtitleTextShadowColor : self.item.subtitleTextShadowColor;
-    self.subtitleLabel.shadowOffset = self.item.subtitleTextShadowOffset.width == 0 && self.item.subtitleTextShadowOffset.height == 0 ? self.menu.subtitleTextShadowOffset : self.item.subtitleTextShadowOffset;
     self.subtitleLabel.textAlignment = (NSInteger)self.item.subtitleTextAlignment == -1 ? self.menu.subtitleTextAlignment : self.item.subtitleTextAlignment;
     
     self.item.customView.frame = CGRectMake(0, 0, self.titleLabel.frame.size.width, self.frame.size.height);
@@ -179,11 +175,7 @@
         self.imageView.tintColor = self.menu.highlightedImageTintColor;
     }
     self.titleLabel.textColor = self.item.highlightedTextColor == nil ? self.menu.highlightedTextColor : self.item.highlightedTextColor;
-    self.titleLabel.shadowColor = self.item.highlightedTextShadowColor == nil ? self.menu.highlightedTextShadowColor : self.item.highlightedTextShadowColor;
-    self.titleLabel.shadowOffset = self.item.highlightedTextShadowOffset.width == 0 && self.item.highlightedTextShadowOffset.height == 0 ? self.menu.highlightedTextShadowOffset : self.item.highlightedTextShadowOffset;
     self.subtitleLabel.textColor = self.item.subtitleHighlightedTextColor == nil ? self.menu.subtitleHighlightedTextColor : self.item.subtitleHighlightedTextColor;
-    self.subtitleLabel.shadowColor = self.item.subtitleHighlightedTextShadowColor == nil ? self.menu.subtitleHighlightedTextShadowColor : self.item.subtitleHighlightedTextShadowColor;
-    self.subtitleLabel.shadowOffset = self.item.subtitleHighlightedTextShadowOffset.width == 0 && self.item.subtitleHighlightedTextShadowOffset.height == 0 ? self.menu.subtitleHighlightedTextShadowOffset : self.item.subtitleHighlightedTextShadowOffset;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -195,11 +187,7 @@
         self.imageView.tintColor = self.menu.imageTintColor;
     }
     self.titleLabel.textColor = self.item.textColor == nil ? self.menu.textColor : self.item.textColor;
-    self.titleLabel.shadowColor = self.item.textShadowColor == nil ?self.menu.textShadowColor : self.item.textShadowColor;
-    self.titleLabel.shadowOffset = self.item.textShadowOffset.width == 0  && self.item.textShadowOffset.height == 0 ? self.menu.textShadowOffset : self.item.textShadowOffset;
     self.subtitleLabel.textColor = self.item.subtitleTextColor == nil ? self.menu.subtitleTextColor : self.item.subtitleTextColor;
-    self.subtitleLabel.shadowColor = self.item.subtitleTextShadowColor == nil ? self.menu.subtitleTextShadowColor : self.item.subtitleTextShadowColor;
-    self.subtitleLabel.shadowOffset = self.item.subtitleTextShadowOffset.width == 0 && self.item.subtitleTextShadowOffset.height == 0 ? self.menu.subtitleTextShadowOffset : self.item.subtitleTextShadowOffset;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -211,11 +199,7 @@
         self.imageView.tintColor = self.menu.imageTintColor;
     }
     self.titleLabel.textColor = self.item.textColor == nil ? self.menu.textColor : self.item.textColor;
-    self.titleLabel.shadowColor = self.item.textShadowColor == nil ? self.menu.textShadowColor : self.item.textShadowColor;
-    self.titleLabel.shadowOffset = self.item.textShadowOffset.width == 0 && self.item.textShadowOffset.height ? self.menu.textShadowOffset : self.item.textShadowOffset;
     self.subtitleLabel.textColor = self.item.subtitleTextColor == nil ? self.menu.subtitleTextColor : self.item.subtitleTextColor;
-    self.subtitleLabel.shadowColor = self.menu.subtitleTextShadowColor == nil ? self.menu.subtitleTextShadowColor : self.item.subtitleTextShadowColor;
-    self.subtitleLabel.shadowOffset = self.item.subtitleTextShadowOffset.width == 0 && self.item.subtitleTextShadowOffset.height == 0 ? self.menu.subtitleTextShadowOffset : self.item.subtitleTextShadowOffset;
 
     CGPoint endedPoint = [touches.anyObject locationInView:self];
     if (endedPoint.y < 0 || endedPoint.y > CGRectGetHeight(self.bounds))
