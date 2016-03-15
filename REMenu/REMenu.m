@@ -166,14 +166,6 @@
     self.menuWrapperView = ({
         UIView *view = [[UIView alloc] init];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        if (!self.liveBlur || !REUIKitIsFlatMode()) {
-            view.layer.shadowColor = self.shadowColor.CGColor;
-            view.layer.shadowOffset = self.shadowOffset;
-            view.layer.shadowOpacity = self.shadowOpacity;
-            view.layer.shadowRadius = self.shadowRadius;
-            view.layer.shouldRasterize = YES;
-            view.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        }
         view;
     });
     
